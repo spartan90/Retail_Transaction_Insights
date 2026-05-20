@@ -17,7 +17,12 @@ class DataLoader:
             raise FileNotFoundError(f"File not found at {self.filePath}")
 
         print("File verified. Reading excel....")
-        df = pd.read_csv(self.filePath)
+        ##df = pd.read_csv(self.filePath)
+        df = pd.read_csv(
+            self.filePath,
+            low_memory=False,
+            on_bad_lines='skip'
+        )
 
         #drop empty rows if any
         df = df.dropna(subset=['Date']).copy()
