@@ -1,5 +1,8 @@
+import sys
+
+from Dashboard import Dashboard
 from DataLoader import DataLoader
-from analyzer import DataAnalyzer
+from Analyzer import DataAnalyzer
 
 
 def main():
@@ -17,10 +20,14 @@ def main():
         analyzer = DataAnalyzer(dataframe=loadedData)
         analyzer.analyze()
 
-    except FileNotFoundError as fnf_error:
-        print(f"\n[Configuration Error]: {fnf_error}", file=sys.stderr)
+        #Dashboard..
+        dashboard = Dashboard(dataframe=loadedData)
+        dashboard.generateDashboard(outputFilename='retail_analytics_dashboard.png')
+
+    except FileNotFoundError as error:
+        print(f"\n[Error]: {error}", file=sys.stderr)
     except Exception as runtime_error:
-        print(f"\n[Unexpected Execution Exception]: {runtime_error}", file=sys.stderr)
+        print(f"\n[Exception]: {runtime_error}", file=sys.stderr)
 
 if __name__ == "__main__":
     main()
